@@ -3,8 +3,8 @@ import mongoose from "mongoose";
 const UserSchema = mongoose.Schema({
   employeeID: {
     type: Number,
-    unique: true,
     required: true,
+    unique: true,
     length: 5,
   },
   name: {
@@ -13,7 +13,7 @@ const UserSchema = mongoose.Schema({
     max: 155,
   },
   password: {
-    typr: String,
+    type: String,
     required: true,
     min: 5,
     max: 1024
