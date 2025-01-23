@@ -6,25 +6,29 @@ import bcrypt from "bcrypt";
 const router = express.Router();
 
 const registerUser = async (req, res) => {
-  let user = await User.findOne({ employeeID: req.body.employeeID });
-  if (user) return res.status(400).send("User Already Registered!");
+  try {
+    let user = await User.findOne({ employeeID: req.body.employeeID });
+    if (user) return res.status(400).send("User Already Registered!");
 
-  user = new User({
-    employeeID: req.body.employeeID,
-    name: req.body.name,
-    password: req.body.password,
-  });
+    user = new User({
+      employeeID: req.body.employeeID,
+      name: req.body.name,
+      password: req.body.password,
+    });
 
-  const salt = await bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(10);
 
-  user.password = await bcrypt.hash(user.password, salt);
+    user.password = await bcrypt.hash(user.password, salt);
 
-  await user.save();
+    await user.save();
 
-  res.send({
-    employeeID: user.employeeID,
-    name: user.name,
-  });
+    res.send({
+      employeeID: user.employeeID,
+      name: user.name,
+    });
+  } catch (error) {
+    res.status(404).send({ message: error.message });
+  }
 };
 
 router.post("/", registerUser);
