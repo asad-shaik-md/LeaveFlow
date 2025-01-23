@@ -22,7 +22,9 @@ const registerUser = async (req, res) => {
 
     await user.save();
 
-    res.send({
+    const token = user.generateAuthToken();
+
+    res.header("x-auth-token", token).status(200).send({
       employeeID: user.employeeID,
       name: user.name,
     });
