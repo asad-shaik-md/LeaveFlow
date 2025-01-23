@@ -6,6 +6,11 @@ const LeaveRequestSchema = mongoose.Schema({
     required: true,
     length: 5,
   },
+  name: {
+    type: String,
+    required: true,
+    max: 155,
+  },
   leaveType: {
     type: String,
     enum: ["Sick Leave", "Casual Leave", "Vacation Leave"],
