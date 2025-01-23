@@ -7,17 +7,16 @@ import register from './routes/register.js';
 import login from './routes/login.js';
 
 dotenv.config();
-
-if (!process.env.JWT_PRIVATE_KEY) {
-  console.error('FATAL ERROR: JWT Privatekey not found');
-  process.exit(1)
-}
-
 const app = express();
 app.use(express.json());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(cors());
+
+if (!process.env.JWT_PRIVATE_KEY) {
+  console.error('FATAL ERROR: JWT Privatekey not found');
+  process.exit(1)
+}
 
 app.use('/register', register);
 app.use('/login', login);
