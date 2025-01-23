@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
 const UserSchema = mongoose.Schema({
   employeeID: {
@@ -17,19 +17,27 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true,
     min: 5,
-    max: 1024
+    max: 1024,
   },
   role: {
     type: String,
     enum: ["employee", "admin"],
-    default: "employee"
-  }
+    default: "employee",
+  },
 });
 
-UserSchema.methods.generateAuthToken = function() {
-  const token = jwt.sign({_id: this._id}, process.env.JWT_PRIVATE_KEY)
-  return token
-}
+UserSchema.methods.generateAuthToken = function () {
+  const token = jwt.sign(
+    {
+      _id: this._id,
+      employeeID: this.employeeID,
+      name: this.name,
+      role: this.role,
+    },
+    process.env.JWT_PRIVATE_KEY
+  );
+  return token;
+};
 
 const User = mongoose.model("User", UserSchema);
 export default User;
