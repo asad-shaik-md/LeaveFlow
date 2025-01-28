@@ -2,8 +2,8 @@ import User from "../models/User.js";
 import express from "express";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import jwt from 'jsonwebtoken';
-import Joi from 'joi';
+import jwt from "jsonwebtoken";
+import Joi from "joi";
 
 const router = express.Router();
 
@@ -13,7 +13,7 @@ function validateLogin(user) {
     password: Joi.string().min(5).max(1024).required(),
   });
 
-  return schema.validate(user)
+  return schema.validate(user);
 }
 
 const loginUser = async (req, res) => {
@@ -24,16 +24,25 @@ const loginUser = async (req, res) => {
     const user = await User.findOne({ employeeID: req.body.employeeID });
     if (!user) return res.status(400).send("Invalid EmployeeID or Password.");
 
-    const isValidPassword = await bcrypt.compare(req.body.password, user.password);
-    if (!isValidPassword) return res.status(400).send("Invalid EmployeeID or Password.");
+    const isValidPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+    if (!isValidPassword)
+      return res.status(400).send("Invalid EmployeeID or Password.");
 
-    const token = user.generateAuthToken()
-    res.status(200).send(token)
+    const token = user.generateAuthToken();
+
+    res
+      .header("x-auth-token", token)
+      .header("Access-Control-Expose-Headers", "x-auth-token")
+      .status(200)
+      .send(token);
   } catch (error) {
     res.status(404).send({ message: error.message });
   }
 };
 
-router.post('/', loginUser);
+router.post("/", loginUser);
 
 export default router;

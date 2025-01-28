@@ -2,7 +2,7 @@ import User from "../models/User.js";
 import express from "express";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import Joi from 'joi';
+import Joi from "joi";
 
 const router = express.Router();
 
@@ -13,7 +13,7 @@ function validateRegister(user) {
     password: Joi.string().min(5).max(1024).required(),
   });
 
-  return schema.validate(user)
+  return schema.validate(user);
 }
 
 const registerUser = async (req, res) => {
@@ -38,10 +38,14 @@ const registerUser = async (req, res) => {
 
     const token = user.generateAuthToken();
 
-    res.header("x-auth-token", token).status(200).send({
-      employeeID: user.employeeID,
-      name: user.name,
-    });
+    res
+      .header("x-auth-token", token)
+      .header("Access-Control-Expose-Headers", "x-auth-token")
+      .status(200)
+      .send({
+        employeeID: user.employeeID,
+        name: user.name,
+      });
   } catch (error) {
     res.status(404).send({ message: error.message });
   }

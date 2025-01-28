@@ -5,6 +5,13 @@ import Link from "next/link";
 import Joi from "joi";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import loginRequest from "@/utils/loginRequest";
+
+interface Credentials {
+  employeeID: number;
+  password: string;
+};
 
 const schema = Joi.object({
   employeeID: Joi.string().min(5).required().messages({
@@ -23,16 +30,22 @@ const schema = Joi.object({
 });
 
 export default function Login() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm<Credentials>({
     resolver: joiResolver(schema),
   });
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const router = useRouter();
 
+  const onSubmit = handleSubmit(async (data: Credentials) => {
+    const result = await loginRequest(data);
+
+    if (result.success) {
+      router.push('/dashboard');
+    } else {
+      alert(result.error);
+    }
+  });
+  
   return (
     <div>
       <div className="font-[family-name:var(--font-poppins)] flex justify-center items-center gap-2 mt-5">

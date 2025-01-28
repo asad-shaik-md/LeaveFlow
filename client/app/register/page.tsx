@@ -5,6 +5,14 @@ import Link from "next/link";
 import Joi from "joi";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import registerRequest from "@/utils/registerRequest";
+
+interface Credentials {
+  employeeID: number;
+  name: string;
+  password: string;
+};
 
 const schema = Joi.object({
   employeeID: Joi.string().min(5).required().messages({
@@ -34,11 +42,21 @@ export default function Register() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<Credentials>({
     resolver: joiResolver(schema),
   });
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const router = useRouter();
+
+  const onSubmit = handleSubmit(async (data: Credentials) => {
+    const result = await registerRequest(data);
+
+    if (result.success) {
+      router.push('/dashboard');
+    } else {
+      alert(result.error);
+    }
+  });
 
   return (
     <div>
