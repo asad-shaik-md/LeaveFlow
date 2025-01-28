@@ -8,7 +8,7 @@ const router = express.Router();
 
 function validateRegister(user) {
   const schema = Joi.object({
-    employeeID: Joi.number().min(5).required(),
+    employeeID: Joi.string().min(5).required(),
     name: Joi.string().min(5).max(155).required(),
     password: Joi.string().min(5).max(1024).required(),
   });
