@@ -1,33 +1,37 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
-import Joi from 'joi';
+import Joi from "joi";
 import { joiResolver } from "@hookform/resolvers/joi";
-import {useForm} from 'react-hook-form'
+import { useForm } from "react-hook-form";
 
 const schema = Joi.object({
   employeeID: Joi.string().min(5).required().messages({
-    'string.base': 'Employee ID should be a type of text',
-    'string.empty': 'Employee ID cannot be an empty field',
-    'string.min': 'Employee ID should have a minimum length of 5',
-    'any.required': 'Employee ID is a required field'
+    "string.base": "Employee ID should be a type of text",
+    "string.empty": "Employee ID cannot be an empty field",
+    "string.min": "Employee ID should have a minimum length of 5",
+    "any.required": "Employee ID is a required field",
   }),
   password: Joi.string().min(5).max(1024).required().messages({
-    'string.base': 'Password should be a type of text',
-    'string.empty': 'Password cannot be an empty field',
-    'string.min': 'Password should have a minimum length of 5',
-    'string.max': 'Password should have a maximum length of 1024',
-    'any.required': 'Password is a required field'
+    "string.base": "Password should be a type of text",
+    "string.empty": "Password cannot be an empty field",
+    "string.min": "Password should have a minimum length of 5",
+    "string.max": "Password should have a maximum length of 1024",
+    "any.required": "Password is a required field",
   }),
 });
 
 export default function Login() {
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: joiResolver(schema),
   });
 
-const onSubmit = handleSubmit(data=> console.log(data));
+  const onSubmit = handleSubmit((data) => console.log(data));
 
   return (
     <div>
@@ -61,7 +65,11 @@ const onSubmit = handleSubmit(data=> console.log(data));
                 {...register("employeeID")}
                 className="w-full border-black border-b mt-1 p-2 focus:outline-none"
               />
-              {errors.employeeID && <p className="text-red-600 text-xs mt-1">{errors.employeeID.message?.toString()}</p>}
+              {errors.employeeID && (
+                <p className="text-red-600 text-xs mt-1">
+                  {errors.employeeID.message?.toString()}
+                </p>
+              )}
             </div>
 
             <div className="mt-4">
@@ -75,7 +83,11 @@ const onSubmit = handleSubmit(data=> console.log(data));
                 {...register("password")}
                 className="w-full border-black border-b mt-1 p-2 focus:outline-none"
               />
-              {errors.password && <p className="text-red-600 text-xs mt-1">{errors.password.message?.toString()}</p>}
+              {errors.password && (
+                <p className="text-red-600 text-xs mt-1">
+                  {errors.password.message?.toString()}
+                </p>
+              )}
             </div>
 
             <button
