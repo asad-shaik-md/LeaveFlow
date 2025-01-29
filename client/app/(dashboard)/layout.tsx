@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+
 import { Poppins, Outfit } from "next/font/google";
 import "../globals.css";
 import Navbar from '../components/Navbar';
@@ -14,10 +14,6 @@ const outfit = Outfit({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Leave Flow",
-  description: "A Web App for Leave Management",
-};
 
 export default function RootLayout({
   children,
@@ -25,13 +21,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
+      <div
         className={`${outfit.variable} ${poppins.variable} antialiased`}
       >
         <Navbar />
         {children}
-      </body>
-    </html>
+      </div>
   );
 }

@@ -13,20 +13,17 @@ interface Credentials {
   password: string;
 };
 
+const errorMessages = {
+  "string.base": "This field should be a type of text",
+  "string.empty": "This field cannot be an empty field",
+  "string.min": "This field should have a minimum length of {#limit}",
+  "string.max": "This field should have a maximum length of {#limit}",
+  "any.required": "This field is required"
+};
+
 const schema = Joi.object({
-  employeeID: Joi.string().min(5).required().messages({
-    "string.base": "Employee ID should be a type of text",
-    "string.empty": "Employee ID cannot be an empty field",
-    "string.min": "Employee ID should have a minimum length of 5",
-    "any.required": "Employee ID is a required field",
-  }),
-  password: Joi.string().min(5).max(1024).required().messages({
-    "string.base": "Password should be a type of text",
-    "string.empty": "Password cannot be an empty field",
-    "string.min": "Password should have a minimum length of 5",
-    "string.max": "Password should have a maximum length of 1024",
-    "any.required": "Password is a required field",
-  }),
+  employeeID: Joi.string().min(5).required().messages(errorMessages),
+  password: Joi.string().min(5).max(1024).required().messages(errorMessages),
 });
 
 export default function Login() {
