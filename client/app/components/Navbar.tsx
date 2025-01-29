@@ -13,7 +13,7 @@ const Navbar = () => {
           width={32}
           height={32}
         />
-        <h1 className="text-[#5A67BA] text-[15px] font-bold font-[family-name:var(--font-poppins)]">
+        <h1 className="text-[#5A67BA] text-[13px] font-bold font-[family-name:var(--font-poppins)]">
           LeaveFLow
         </h1>
       </div>
@@ -22,13 +22,13 @@ const Navbar = () => {
         <div className="flex items-center justify-center gap-1">
           <Link
             href="/dashboard"
-            className="text-[15px] text-[#5A67BA] font-semibold bg-[#707FDD] bg-opacity-10 px-7 py-2 rounded-md"
+            className="text-[13px] text-[#5A67BA] font-medium  bg-[#707FDD] bg-opacity-10 px-7 py-2 rounded-md"
           >
             Dashboard
           </Link>
           <Link
-            href="/leave-history"
-            className="text-[15px] text-[#5A67BA] font-semibold bg-opacity-10 px-7 py-2 rounded-md"
+            href="/login"
+            className="text-[13px] text-[#5A67BA] font-medium bg-opacity-10 px-7 py-2 rounded-md"
           >
             Leave History
           </Link>
