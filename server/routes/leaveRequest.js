@@ -7,7 +7,7 @@ const router = express.Router();
 
 function validateLeaveRequest(LeaveRequest) {
     const schema = Joi.object({
-        employeeID: Joi.string().min(5).required(),
+        employeeID: Joi.number().min(5).required(),
         name: Joi.string().min(5).required(),
         leaveType: Joi.string().min(5).required(),
         startDate: Joi.date(),

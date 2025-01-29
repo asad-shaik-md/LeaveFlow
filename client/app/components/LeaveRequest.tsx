@@ -1,19 +1,11 @@
 "use client";
 
-import { jwtDecode } from "jwt-decode";
 import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import Joi from "joi";
-import { useEffect, useState } from "react";
 import leaveSubmission from "@/utils/leaveRequestSubmission";
 
-interface Decoded {
-  employeeID: string;
-  name: string;
-}
 interface LeaveData {
-  name: string;
-  employeeID: string;
   leaveType: string;
   startDate: Date;
   endDate: Date;
@@ -33,8 +25,6 @@ const yesterday = new Date();
 yesterday.setDate(yesterday.getDate() - 1);
 
 const schema = Joi.object({
-  name: Joi.string(),
-  employeeID: Joi.string(),
   leaveType: Joi.string().min(2).required().messages(errorMessages),
   startDate: Joi.date()
     .greater(yesterday.toISOString())
@@ -48,26 +38,6 @@ const schema = Joi.object({
 });
 
 const LeaveRequest = () => {
-  const [decodedData, setDecodedData] = useState<Decoded>({
-    name: "",
-    employeeID: "",
-  });
-
-  const [loading, setLoading] = useState(true); // Loading state
-
-  useEffect(() => {
-  const token = localStorage.getItem("authToken");
-  if (token) {
-    const payload = jwtDecode<Decoded>(token);
-    const { name, employeeID } = payload;
-
-    setDecodedData({
-      name: name || '',
-      employeeID: employeeID || ''
-    })
-    setLoading(false);
-  }
-  }, [])
 
   const {
     register,
@@ -88,10 +58,6 @@ const LeaveRequest = () => {
     }
   });
 
-  if (loading) {
-    return <div></div>;
-  }
-
   return (
     <div className="max-w-[400px] p-10 m-[35px] flex flex-col gap-4 border-[#D7DEDD] border-[1px] font-[family-name:var(--font-outfit)]">
       <h1 className="text-center text-2xl font-semibold text-[#5A67BA]">
@@ -100,7 +66,7 @@ const LeaveRequest = () => {
       <hr className="h-[0] w-auto border-[1] bg-[#D7DEDD]" />
 
       <form onSubmit={onSubmit}>
-        <div className="flex items-center justify-between gap-8">
+        {/* <div className="flex items-center justify-between gap-8">
           <div className="mt-4">
             <label htmlFor="name" className="block text-[12px] text-gray-400">
               Name
@@ -138,7 +104,7 @@ const LeaveRequest = () => {
             </p>
           )}
           </div>
-        </div>
+        </div> */}
 
         <div className="mt-4">
           <label htmlFor="leaveType" className="block text-[12px] ">
