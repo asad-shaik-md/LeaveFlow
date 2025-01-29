@@ -1,6 +1,10 @@
+import LeaveRequest from "@/app/components/LeaveRequest"
+
 const Dashboard = () => {
   return (
-    <div className=''></div>
+    <div className=''>
+      <LeaveRequest />
+    </div>
   )
 }
 
