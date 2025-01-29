@@ -23,8 +23,6 @@ const loginRequest = async (credentials: Credentials): Promise<LoginResponse> =>
         
         
         const token = response.headers.get("x-auth-token");
-        console.log(response)
-
         if (token) {
             localStorage.setItem("authToken", token);
             return { success: true };

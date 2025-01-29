@@ -5,12 +5,13 @@ import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import Joi from "joi";
 import { useEffect, useState } from "react";
+import leaveSubmission from "@/utils/leaveRequestSubmission";
 
 interface Decoded {
   employeeID: string;
   name: string;
 }
-interface LeaveDetails {
+interface LeaveData {
   name: string;
   employeeID: string;
   leaveType: string;
@@ -52,6 +53,8 @@ const LeaveRequest = () => {
     employeeID: "",
   });
 
+  const [loading, setLoading] = useState(true); // Loading state
+
   useEffect(() => {
   const token = localStorage.getItem("authToken");
   if (token) {
@@ -62,6 +65,7 @@ const LeaveRequest = () => {
       name: name || '',
       employeeID: employeeID || ''
     })
+    setLoading(false);
   }
   }, [])
 
@@ -69,11 +73,24 @@ const LeaveRequest = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LeaveDetails>({
+  } = useForm<LeaveData>({
     resolver: joiResolver(schema),
   });
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const onSubmit = handleSubmit(async (data: LeaveData) => {
+    console.log('clicked')
+    const result = await leaveSubmission(data)
+
+    if (result.success) {
+      console.log('leave Submitted successfully')
+    } else {
+      alert(result.error);
+    }
+  });
+
+  if (loading) {
+    return <div></div>;
+  }
 
   return (
     <div className="max-w-[400px] p-10 m-[35px] flex flex-col gap-4 border-[#D7DEDD] border-[1px] font-[family-name:var(--font-outfit)]">
@@ -91,11 +108,16 @@ const LeaveRequest = () => {
             <input
               id="name"
               type="text"
-              value={decodedData.name ? decodedData.name : "Not Logged In"}
+              defaultValue={decodedData.name}
               readOnly
               {...register("name")}
               className="w-full border-gray-400 border-b mt-1 p-2 text-gray-400 focus:outline-none"
             />
+            {errors.name && (
+            <p className="text-red-600 text-xs mt-1">
+              {errors.name.message?.toString()}
+            </p>
+          )}
           </div>
 
           <div className="mt-4">
@@ -105,11 +127,16 @@ const LeaveRequest = () => {
             <input
               id="employeeID"
               type="number"
-              value={decodedData.employeeID}
+              defaultValue={decodedData.employeeID}
               readOnly
               {...register("employeeID")}
               className="w-full border-gray-400 border-b mt-1 p-2 text-gray-400 focus:outline-none"
             />
+            {errors.employeeID && (
+            <p className="text-red-600 text-xs mt-1">
+              {errors.employeeID.message?.toString()}
+            </p>
+          )}
           </div>
         </div>
 
@@ -125,7 +152,7 @@ const LeaveRequest = () => {
             <option value="">Choose the Type</option>
             <option value="Sick Leave">Sick Leave</option>
             <option value="Causal Leave">Causal Leave</option>
-            <option value="Vaction Leave">Vaction Leave</option>
+            <option value="Vacation Leave">Vacation Leave</option>
           </select>
           {errors.leaveType && (
             <p className="text-red-600 text-xs mt-1">

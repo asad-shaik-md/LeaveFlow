@@ -11,7 +11,8 @@ function validateLeaveRequest(LeaveRequest) {
         name: Joi.string().min(5).required(),
         leaveType: Joi.string().min(5).required(),
         startDate: Joi.date(),
-        endDate: Joi.date()
+        endDate: Joi.date(),
+        reason: Joi.string().allow('')
     });
 
     return schema.validate(LeaveRequest);
@@ -28,6 +29,7 @@ const loginRequest = async (req, res) => {
             leaveType: req.body.leaveType,
             startDate: req.body.startDate,
             endDate: req.body.endDate,
+            reason: req.body.reason
         })
 
         await leaveData.save();
