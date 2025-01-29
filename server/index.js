@@ -3,8 +3,10 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import helmet from "helmet";
+import authMiddleware from "./middleware/authMiddleware.js";
 import register from './routes/register.js';
 import login from './routes/login.js';
+import leave from './routes/leaveRequest.js'
 
 dotenv.config();
 const app = express();
@@ -20,6 +22,8 @@ if (!process.env.JWT_PRIVATE_KEY) {
 
 app.use('/register', register);
 app.use('/login', login);
+// app.use('/leave-request', leave);
+app.use('/leave-request', authMiddleware, leave)
 
 const PORT = process.env.PORT || 3001;
 mongoose
