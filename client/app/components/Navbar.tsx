@@ -34,9 +34,11 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="flex items-center justify-center">
+          <Link href="/leave-history">
           <button>
             <CgProfile className="text-[35px] text-[#5A67BA]"/>
           </button>
+          </Link>
         </div>
       </div>
     </div>

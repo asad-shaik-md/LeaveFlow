@@ -42,7 +42,7 @@ const LeaveRequest = () => {
 
   return (
     <div className="">
-      <div className="w-full p-10 flex flex-col gap-4 border-[#D7DEDD] border-[1px] font-[family-name:var(--font-outfit)]">
+      <div className="flex flex-col gap-4 p-6">
         <h1 className="text-center text-2xl font-semibold text-[#5A67BA]">
           Leave Request Form
         </h1>

@@ -1,7 +1,7 @@
-const LeaveRequest = () => {
+const LeaveHistory = () => {
   return (
-    <div className=''>LeaveRequest</div>
+    <div className=''>LeaveHistory</div>
   )
 }
 
-export default LeaveRequest
+export default LeaveHistory
