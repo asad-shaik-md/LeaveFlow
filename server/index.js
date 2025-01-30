@@ -22,7 +22,6 @@ if (!process.env.JWT_PRIVATE_KEY) {
 
 app.use('/register', register);
 app.use('/login', login);
-// app.use('/leave-request', leave);
 app.use('/leave-request', authMiddleware, leave)
 
 const PORT = process.env.PORT || 3001;

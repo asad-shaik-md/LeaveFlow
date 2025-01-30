@@ -40,6 +40,13 @@ const loginRequest = async (req, res) => {
     }
 }
 
+const pendingRequests = async (req, res) => {
+    const pendingLeaves = await LeaveRequest.find({ status: "Pending"}).select('-_id -status -employeeID');
+
+    res.status(200).send(pendingLeaves)
+}
+
 router.post('/', loginRequest);
+router.get('/pending', pendingRequests)
 
 export default router;
