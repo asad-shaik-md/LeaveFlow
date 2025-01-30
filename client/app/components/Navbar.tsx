@@ -27,14 +27,14 @@ const Navbar = () => {
             Dashboard
           </Link>
           <Link
-            href="/login"
+            href="/leave-history"
             className="text-[13px] text-[#5A67BA] font-medium bg-opacity-10 px-7 py-2 rounded-md"
           >
             Leave History
           </Link>
         </div>
         <div className="flex items-center justify-center">
-          <Link href="/leave-history">
+          <Link href="/login">
           <button>
             <CgProfile className="text-[35px] text-[#5A67BA]"/>
           </button>

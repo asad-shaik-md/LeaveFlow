@@ -59,7 +59,7 @@ const Dashboard = () => {
     <PrivateRoute>
       <div
         className={`${
-          loading || leaves.length == 0 ? "hidden" : "solid"
+          (role === 'admin' && leaves.length == 0) ? "hidden" : "solid"
         } ${
           loading ? "hidden" : "solid"
         } p-8 w-full flex justify-center items-center`}
@@ -85,7 +85,7 @@ const Dashboard = () => {
           )}
         </div>
       </div>
-      <div className={`${leaves.length !== 0 ? "hidden" : "solid"} fixed left-1/2 -translate-x-1/2 top-[15%] p-4 rounded-md bg-[#707FDD] bg-opacity-10 text-[#5A67BA]`}>
+      <div className={`${(role === 'admin' && leaves.length == 0) ? "solid" : "hidden"} fixed left-1/2 -translate-x-1/2 top-[15%] p-4 rounded-md bg-[#707FDD] bg-opacity-10 text-[#5A67BA]`}>
         No Pending Leaves
       </div>
     </PrivateRoute>

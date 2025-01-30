@@ -16,7 +16,7 @@ interface Leave {
   reason: string;
 }
 
-const Dashboard = () => {
+const LeaveHistory = () => {
   const [leavesPast, setLeavesPast] = useState([]);
   const [comingLeaves, setComingLeaves] = useState([])
 
@@ -81,4 +81,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default LeaveHistory;

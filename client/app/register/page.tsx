@@ -43,7 +43,7 @@ export default function Register() {
     const result = await registerRequest(data);
 
     if (result.success) {
-      router.push('/dashboard');
+      router.push('/');
     } else {
       alert(result.error);
     }

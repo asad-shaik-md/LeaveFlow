@@ -37,7 +37,7 @@ export default function Login() {
     const result = await loginRequest(data);
 
     if (result.success) {
-      router.push('/dashboard');
+      router.push('/');
     } else {
       alert(result.error);
     }

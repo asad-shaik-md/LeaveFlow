@@ -87,7 +87,7 @@ const pastLeaves = async (req, res) => {
 
     data.map((data) => {
       const itemDate = new Date(data.endDate);
-      itemDate.setDate(itemDate.getDate() - 1);
+      // itemDate.setDate(itemDate.getDate() - 1);
 
       if (itemDate < dateToday) {
         newData.push(data);
@@ -110,7 +110,7 @@ const upcomingLeaves = async (req, res) => {
 
     data.map((data) => {
       const itemDate = new Date(data.endDate);
-      itemDate.setDate(itemDate.getDate() - 1);
+      // itemDate.setDate(itemDate.getDate() - 1);
 
       if (itemDate > dateToday) {
         newData.push(data);
