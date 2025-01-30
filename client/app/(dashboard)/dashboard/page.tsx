@@ -45,6 +45,7 @@ const Dashboard = () => {
       (async () => {
         const data = await fetchPendingLeaves();
         setLeaves(data);
+        console.log(data.length)
       })();
     }
   }, [role, refreshKey]);
@@ -53,25 +54,28 @@ const Dashboard = () => {
     setRefreshKey((prev) => prev + 1)
   }  
 
+
   return (
     <PrivateRoute>
       <div
         className={`${
+          loading || leaves.length == 0 ? "hidden" : "solid"
+        } ${
           loading ? "hidden" : "solid"
         } p-8 w-full flex justify-center items-center`}
       >
         <div className="w-[600px] flex flex-col gap-4 border-[1px] border-[#D7DEDD] font-[family-name:var(--font-outfit)] p-4">
           {role === "admin" ? (
-            leaves.map((data: Leave) => {
+            leaves.map((leave: Leave) => {
               return (
                 <LeaveApproval
-                  key={data._id}
-                  _id={data._id}
-                  name={data.name}
-                  leaveType={data.leaveType}
-                  startDate={data.startDate}
-                  endDate={data.endDate}
-                  reason={data.reason}
+                  key={leave._id}
+                  _id={leave._id}
+                  name={leave.name}
+                  leaveType={leave.leaveType}
+                  startDate={leave.startDate}
+                  endDate={leave.endDate}
+                  reason={leave.reason}
                   onAction={handleRefresh}
                 />
               );
@@ -80,6 +84,9 @@ const Dashboard = () => {
             <LeaveRequest />
           )}
         </div>
+      </div>
+      <div className={`${leaves.length !== 0 ? "hidden" : "solid"} fixed left-1/2 -translate-x-1/2 top-[15%] p-4 rounded-md bg-[#707FDD] bg-opacity-10 text-[#5A67BA]`}>
+        No Pending Leaves
       </div>
     </PrivateRoute>
   );
