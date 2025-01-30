@@ -78,9 +78,57 @@ const rejectLeave = async (req, res) => {
   }
 };
 
+const pastLeaves = async (req, res) => {
+  try {
+    const dateToday = new Date();
+    const data = await LeaveRequest.find()
+
+    const newData = []
+
+    data.map((data) => {
+      const itemDate = new Date(data.endDate);
+      itemDate.setDate(itemDate.getDate() - 1);
+
+      if (itemDate < dateToday) {
+        newData.push(data);
+      }
+    })
+    
+    res.status(200).send(newData)
+
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+}
+
+const upcomingLeaves = async (req, res) => {
+  try {
+    const dateToday = new Date();
+    const data = await LeaveRequest.find()
+
+    const newData = []
+
+    data.map((data) => {
+      const itemDate = new Date(data.endDate);
+      itemDate.setDate(itemDate.getDate() - 1);
+
+      if (itemDate > dateToday) {
+        newData.push(data);
+      }
+    })
+    
+    res.status(200).send(newData)
+
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+}
+
 router.post("/", loginRequest);
 router.get("/pending", pendingRequests);
 router.put("/:id/approve", approveLeave);
 router.put("/:id/reject", rejectLeave);
+router.get("/past", pastLeaves);
+router.get("/upcoming", upcomingLeaves);
 
 export default router;

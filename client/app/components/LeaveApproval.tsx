@@ -32,7 +32,7 @@ const LeaveApproval = (props: Props) => {
           </span>
         </div>
         <div className="flex flex-col gap-1">
-          <div className="flex gap-1 px-1">
+          <div className="flex gap-1 px-1 items-center">
             <span className="text-sm">{props.startDate}</span>
             <span className="text-base font-bold">-</span>
             <span className="text-sm">{props.endDate}</span>
