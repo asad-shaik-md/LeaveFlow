@@ -26,6 +26,7 @@ const Dashboard = () => {
   const [role, setRole] = useState("");
   const [loading, setLoading] = useState(true);
   const [leaves, setLeaves] = useState([]);
+  const [refreshKey, setRefreshKey] = useState(0)
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -46,7 +47,11 @@ const Dashboard = () => {
         setLeaves(data);
       })();
     }
-  }, [role]);
+  }, [role, refreshKey]);
+
+  const handleRefresh = () => {
+    setRefreshKey((prev) => prev + 1)
+  }  
 
   return (
     <PrivateRoute>
@@ -61,11 +66,13 @@ const Dashboard = () => {
               return (
                 <LeaveApproval
                   key={data._id}
+                  _id={data._id}
                   name={data.name}
                   leaveType={data.leaveType}
                   startDate={data.startDate}
                   endDate={data.endDate}
                   reason={data.reason}
+                  onAction={handleRefresh}
                 />
               );
             })
