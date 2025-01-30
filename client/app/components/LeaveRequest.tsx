@@ -201,7 +201,7 @@ const LeaveRequest = () => {
               : "opacity-0 translate-y-full top-[100%]"
           }
           items-center text-center gap-5 p-4 
-          bg-[#5A67BA] text-white rounded-md 
+          bg-gray-300 text-black rounded-md 
           font-[family-name:var(--font-outfit)]
         `}
       >
