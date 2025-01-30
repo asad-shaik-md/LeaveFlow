@@ -77,7 +77,7 @@ export default function Register() {
               <input
                 id="employeeId"
                 type="number"
-                placeholder="123456"
+                placeholder="12345"
                 {...register("employeeID")}
                 className="w-full border-black border-b mt-1 p-2 focus:outline-none"
               />

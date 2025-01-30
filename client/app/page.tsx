@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import PrivateRoute from './components/PrivateRoute';
 
 const Page = () => {
   const router = useRouter();
@@ -10,7 +11,7 @@ const Page = () => {
     router.push('/dashboard');
   }, [router]);
 
-  return null;
+  return <PrivateRoute> {null} </PrivateRoute>;
 };
 
 export default Page;

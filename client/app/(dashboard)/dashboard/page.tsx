@@ -5,6 +5,7 @@ import LeaveApproval from "@/app/components/LeaveApproval";
 import LeaveRequest from "@/app/components/LeaveRequest";
 import { useEffect, useState } from "react";
 import fetchPendingLeaves from "@/utils/pendingLeaves";
+import PrivateRoute from "@/app/components/PrivateRoute";
 
 interface Decoded {
   employeeID: string | number;
@@ -39,37 +40,41 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    (async () => {
-      const data = await fetchPendingLeaves();
-      setLeaves(data);
-    })();
-  }, []);
+    if (role === "admin") {
+      (async () => {
+        const data = await fetchPendingLeaves();
+        setLeaves(data);
+      })();
+    }
+  }, [role]);
 
   return (
-    <div
-      className={`${
-        loading ? "hidden" : "solid"
-      } p-8 w-full flex justify-center items-center`}
-    >
-      <div className="w-[600px] flex flex-col gap-4 border-[1px] border-[#D7DEDD] font-[family-name:var(--font-outfit)] p-4">
-        {role === "admin" ? (
-          leaves.map((data: Leave) => {
-            return (
-              <LeaveApproval
-                key={data._id}
-                name={data.name}
-                leaveType={data.leaveType}
-                startDate={data.startDate}
-                endDate={data.endDate}
-                reason={data.reason}
-              />
-            );
-          })
-        ) : (
-          <LeaveRequest />
-        )}
+    <PrivateRoute>
+      <div
+        className={`${
+          loading ? "hidden" : "solid"
+        } p-8 w-full flex justify-center items-center`}
+      >
+        <div className="w-[600px] flex flex-col gap-4 border-[1px] border-[#D7DEDD] font-[family-name:var(--font-outfit)] p-4">
+          {role === "admin" ? (
+            leaves.map((data: Leave) => {
+              return (
+                <LeaveApproval
+                  key={data._id}
+                  name={data.name}
+                  leaveType={data.leaveType}
+                  startDate={data.startDate}
+                  endDate={data.endDate}
+                  reason={data.reason}
+                />
+              );
+            })
+          ) : (
+            <LeaveRequest />
+          )}
+        </div>
       </div>
-    </div>
+    </PrivateRoute>
   );
 };
 

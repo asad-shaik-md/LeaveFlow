@@ -17,7 +17,6 @@ const loginRequest = async (credentials: Credentials): Promise<LoginResponse> =>
             },
             body: JSON.stringify(credentials),
         });
-        console.log(credentials)
 
         if (!response.ok) throw new Error("Login Failed");
         

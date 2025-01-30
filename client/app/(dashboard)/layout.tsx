@@ -2,6 +2,7 @@
 import { Poppins, Outfit } from "next/font/google";
 import "../globals.css";
 import Navbar from '../components/Navbar';
+import PrivateRoute from "../components/PrivateRoute";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -24,7 +25,9 @@ export default function DashboardLayout({
       <div
         className={`${outfit.variable} ${poppins.variable} antialiased`}
       >
-        <Navbar />
+        <PrivateRoute>
+          <Navbar />
+        </PrivateRoute>
         {children}
       </div>
   );
