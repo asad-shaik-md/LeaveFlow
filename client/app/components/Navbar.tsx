@@ -21,7 +21,7 @@ const Navbar = () => {
       <div className="flex items-center justify-center gap-2 py-1">
         <div className="flex items-center justify-center gap-1">
           <Link
-            href="/dashboard"
+            href="/"
             className="text-[13px] text-[#5A67BA] font-medium  bg-[#707FDD] bg-opacity-10 px-7 py-2 rounded-md"
           >
             Dashboard
