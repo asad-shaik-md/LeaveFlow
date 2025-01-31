@@ -43,10 +43,10 @@ const LeaveApproval = (props: Props) => {
           </div>
         </div>
         <div className="flex justify-end gap-4">
-          <button onClick={onApprove} className="bg-red-600 rounded-md px-2 py-1 text-white">
+          <button onClick={onReject} className="bg-red-600 rounded-md px-2 py-1 text-white">
             Reject
           </button>
-          <button onClick={onReject} className="bg-green-600 rounded-md px-2 py-1 text-white">
+          <button onClick={onApprove} className="bg-green-600 rounded-md px-2 py-1 text-white">
             Approve
           </button>
         </div>
