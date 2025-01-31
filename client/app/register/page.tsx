@@ -24,7 +24,7 @@ const errorMessages = {
 
 const schema = Joi.object({
   employeeID: Joi.string().min(5).required().messages(errorMessages),
-  name: Joi.string().min(4).max(155).required().messages(errorMessages),
+  name: Joi.string().min(5).max(155).required().messages(errorMessages),
   password: Joi.string().min(5).max(1024).required().messages(errorMessages),
 });
 

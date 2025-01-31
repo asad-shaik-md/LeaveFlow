@@ -1,22 +1,40 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { CgProfile } from "react-icons/cg";
+import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 const Navbar = () => {
+  const [toggle, setToggle] = useState(false);
+
+  const handleClick = () => {
+    setToggle((prev) => !prev);
+  };
+
+  const logOut = () => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("authToken");
+    }
+  };
+
   return (
     <div className="min-w-full flex items-center justify-between px-8 py-[7.5px] border-b-[1px] border-[#D7DEDD] font-[family-name:var(--font-outfit)]">
-      <div className="flex items-center gap-2">
-        <Image
-          className="rounded-full"
-          src="/LeaveFLow.png"
-          alt="logo"
-          width={32}
-          height={32}
-        />
-        <h1 className="text-[#5A67BA] text-[13px] font-bold font-[family-name:var(--font-poppins)]">
-          LeaveFLow
-        </h1>
-      </div>
+      <Link href="/">
+        <div className="flex items-center gap-2">
+          <Image
+            className="rounded-full"
+            src="/LeaveFLow.png"
+            alt="logo"
+            width={32}
+            height={32}
+          />
+          <h1 className="text-[#5A67BA] text-[13px] font-bold font-[family-name:var(--font-poppins)]">
+            LeaveFLow
+          </h1>
+        </div>
+      </Link>
 
       <div className="flex items-center justify-center gap-2 py-1">
         <div className="flex items-center justify-center gap-1">
@@ -34,11 +52,26 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="flex items-center justify-center">
-          <Link href="/login">
-          <button>
-            <CgProfile className="text-[35px] text-[#5A67BA]"/>
-          </button>
-          </Link>
+          <div className="relative overflow-visible flex flex-col items-center justify-center">
+            <div className="flex items-center gap-1">
+              <CgProfile className="text-[35px] text-[#5A67BA]" />
+              <button onClick={handleClick}>
+                {toggle ? (
+                  <IoMdArrowDropup className="text-md text-black" />
+                ) : (
+                  <IoMdArrowDropdown className="text-md text-black" />
+                )}
+              </button>
+            </div>
+            <button
+              onClick={logOut}
+              className={`${
+                toggle ? "solid" : "hidden"
+              } absolute text-nowrap top-[140%] p-2 bg-gray-300 rounded-md`}
+            >
+              <Link href="/login">Log out</Link>
+            </button>
+          </div>
         </div>
       </div>
     </div>

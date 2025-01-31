@@ -6,6 +6,7 @@ import LeaveRequest from "@/app/components/LeaveRequest";
 import { useEffect, useState } from "react";
 import fetchPendingLeaves from "@/utils/pendingLeaves";
 import PrivateRoute from "@/app/components/PrivateRoute";
+import { getAuthToken } from "@/utils/getAuthToken";
 
 interface Decoded {
   employeeID: string | number;
@@ -25,12 +26,12 @@ interface Leave {
 const Dashboard = () => {
   const [role, setRole] = useState("");
   const [loading, setLoading] = useState(true);
-  const [leaves, setLeaves] = useState([]);
+  const [leaves, setLeaves] = useState<Leave[]>([]);
   const [refreshKey, setRefreshKey] = useState(0)
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const token = localStorage.getItem("authToken");
+      const token = getAuthToken();
 
       if (token) {
         const { role } = jwtDecode<Decoded>(token);
@@ -45,7 +46,6 @@ const Dashboard = () => {
       (async () => {
         const data = await fetchPendingLeaves();
         setLeaves(data);
-        console.log(data.length)
       })();
     }
   }, [role, refreshKey]);
@@ -66,8 +66,8 @@ const Dashboard = () => {
       >
         <div className="w-[600px] flex flex-col gap-4 border-[1px] border-[#D7DEDD] font-[family-name:var(--font-outfit)] p-4">
           {role === "admin" ? (
-            leaves.map((leave: Leave) => {
-              return (
+            Array.isArray(leaves) && leaves.length > 0 ? (
+              leaves.map((leave: Leave) => (
                 <LeaveApproval
                   key={leave._id}
                   _id={leave._id}
@@ -78,8 +78,10 @@ const Dashboard = () => {
                   reason={leave.reason}
                   onAction={handleRefresh}
                 />
-              );
-            })
+              ))
+            ) : (
+              null
+            )
           ) : (
             <LeaveRequest />
           )}

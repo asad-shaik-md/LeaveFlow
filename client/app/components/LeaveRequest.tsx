@@ -20,7 +20,7 @@ const LeaveRequest = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }, reset
   } = useForm<LeaveData>({
     resolver: joiResolver(schema),
   });
@@ -29,6 +29,7 @@ const LeaveRequest = () => {
     const result = await leaveSubmission(data);
 
     if (result.success) {
+      reset();
       setShowNotification(true);
       setTimeout(() => {
         setShowNotification(false);

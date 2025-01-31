@@ -1,6 +1,8 @@
+import { getAuthToken } from "./getAuthToken";
+
 const pastLeaves = async () => {
     try {
-      const token = localStorage.getItem("authToken");
+      const token = getAuthToken();
   
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/leave-request/past`,

@@ -1,4 +1,5 @@
 import { jwtDecode } from "jwt-decode";
+import { getAuthToken } from "./getAuthToken";
 
 interface LeaveData {
   leaveType: string;
@@ -13,7 +14,7 @@ interface Decoded {
 
 const leaveSubmission = async (leaveData: LeaveData) => {
   try {
-    const token = localStorage.getItem("authToken");
+    const token = getAuthToken();
 
     if (!token) throw new Error("No auth token found");
     const { employeeID, name } = jwtDecode<Decoded>(token);

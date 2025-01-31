@@ -81,7 +81,7 @@ const rejectLeave = async (req, res) => {
 const pastLeaves = async (req, res) => {
   try {
     const dateToday = new Date();
-    const data = await LeaveRequest.find()
+    const data = await LeaveRequest.find({ status: { $ne: "Pending"}})
 
     const newData = []
 
@@ -104,7 +104,7 @@ const pastLeaves = async (req, res) => {
 const upcomingLeaves = async (req, res) => {
   try {
     const dateToday = new Date();
-    const data = await LeaveRequest.find()
+    const data = await LeaveRequest.find({ status: { $ne: "Pending"}})
 
     const newData = []
 

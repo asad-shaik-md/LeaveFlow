@@ -1,6 +1,8 @@
+import { getAuthToken } from "./getAuthToken";
+
 const leaveApprove = async (_id: string) => {
   try {
-    const token = localStorage.getItem("authToken");
+    const token = getAuthToken();
 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/leave-request/${_id}/approve`,
