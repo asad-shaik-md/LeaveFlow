@@ -62,7 +62,7 @@ const Dashboard = () => {
           (role === 'admin' && leaves.length == 0) ? "hidden" : "solid"
         } ${
           loading ? "hidden" : "solid"
-        } p-8 w-full flex justify-center items-center`}
+        } p-8 w-full flex justify-center items-center overflow-scroll`}
       >
         <div className="w-[600px] flex flex-col gap-4 border-[1px] border-[#D7DEDD] font-[family-name:var(--font-outfit)] p-4">
           {role === "admin" ? (

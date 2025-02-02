@@ -48,12 +48,12 @@ export default function Login() {
       <div className="font-[family-name:var(--font-poppins)] flex justify-center items-center gap-2 mt-5">
         <Image
           className="rounded-full"
-          src="/LeaveFLow.png"
+          src="/LeaveFlow.png"
           alt="logo"
           width={50}
           height={50}
         />
-        <h1 className="text-lg text-[#5A67BA]">LeaveFLow</h1>
+        <h1 className="text-lg text-[#5A67BA]">LeaveFlow</h1>
       </div>
 
       <div className="min-h-[90vh] flex flex-col justify-center items-center gap-[40px]">

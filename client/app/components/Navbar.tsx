@@ -2,11 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 const Navbar = () => {
+  const pathname = usePathname();
   const [toggle, setToggle] = useState(false);
 
   const handleClick = () => {
@@ -25,13 +27,13 @@ const Navbar = () => {
         <div className="flex items-center gap-2">
           <Image
             className="rounded-full"
-            src="/LeaveFLow.png"
+            src="/LeaveFlow.png"
             alt="logo"
             width={32}
             height={32}
           />
           <h1 className="text-[#5A67BA] text-[13px] font-bold font-[family-name:var(--font-poppins)]">
-            LeaveFLow
+            LeaveFlow
           </h1>
         </div>
       </Link>
@@ -40,13 +42,15 @@ const Navbar = () => {
         <div className="flex items-center justify-center gap-1">
           <Link
             href="/"
-            className="text-[13px] text-[#5A67BA] font-medium  bg-[#707FDD] bg-opacity-10 px-7 py-2 rounded-md"
+            className={`text-[13px] text-[#5A67BA] font-medium px-7 py-2 rounded-md ${
+          pathname === "/" ? "bg-[#707FDD] bg-opacity-10" : ""}`}
           >
             Dashboard
           </Link>
           <Link
             href="/leave-history"
-            className="text-[13px] text-[#5A67BA] font-medium bg-opacity-10 px-7 py-2 rounded-md"
+            className={`text-[13px] text-[#5A67BA] font-medium px-7 py-2 rounded-md ${
+          pathname === "/leave-history" ? "bg-[#707FDD] bg-opacity-10" : ""}`}
           >
             Leave History
           </Link>
