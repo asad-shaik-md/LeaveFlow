@@ -40,5 +40,5 @@ UserSchema.methods.generateAuthToken = function () {
   return token;
 };
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model("LeaveFlowUsers", UserSchema);
 export default User;
