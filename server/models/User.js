@@ -34,8 +34,7 @@ UserSchema.methods.generateAuthToken = function () {
       name: this.name,
       role: this.role,
     },
-    process.env.JWT_PRIVATE_KEY,
-    { expiresIn: "1h" }
+    process.env.JWT_PRIVATE_KEY
   );
   return token;
 };
